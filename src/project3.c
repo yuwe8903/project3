@@ -15,11 +15,14 @@ void spi_nrf_interface()
 
 void profile_demo()
 {
+	Systick_Configure();
 	uint8_t * src = malloc(5000);
 	uint8_t * dst = malloc(5000);
 	FRDM_profile_functions(src, dst);
 #ifdef BBB
 	BBB_profile_functions(src, dst);
 #endif
+	free(src);
+	free(dst);
 	return;
 }
