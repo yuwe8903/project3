@@ -6,19 +6,23 @@
 *  @date Apr 7, 2018
 *************************************************************/
 #include "project3.h"
-void spi_nrf_interface()
+void project3_spi_nrf_interface()
 {
 	SPI_Configure();
 	nrf_read_status();
 	return;
 }
 
-void profile_demo()
+void project3_profile_demo()
 {
 	Systick_Configure();
 	uint8_t * src = malloc(5000);
 	uint8_t * dst = malloc(5000);
+#ifdef KL25Z
+	DMA_Configure();
 	FRDM_profile_functions(src, dst);
+#endif
+
 #ifdef BBB
 	BBB_profile_functions(src, dst);
 #endif

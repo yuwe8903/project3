@@ -19,7 +19,7 @@
 #include "spi.h"
 #include "nordic.h"
 #include "gpio.h"
-void spi_nrf_interface();
-void profile_demo();
+void project3_spi_nrf_interface();
+void project3_profile_demo();
 
 #endif /* _PROJECT3_H_ */
