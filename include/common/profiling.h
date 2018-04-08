@@ -103,10 +103,10 @@ void profile_memset_dma(uint8_t * src);
 * Return:
 *   Nothing
 **********************************************************/
-void BBB_profile_functions(uint8_t * src,uint8_t * dst);
+void FRDM_profile_functions(uint8_t * src, uint8_t * dst);
 
 /*********************************************************
-* void FRDM_profile_functions() - This function will call
+* void BBB_profile_functions() - This function will call
 * 	all of the profiling functions for BBB platform. This
 * 	function contains printf(), but needs #define BBB
 * Inputs:
@@ -115,6 +115,6 @@ void BBB_profile_functions(uint8_t * src,uint8_t * dst);
 * Return:
 *   Nothing
 **********************************************************/
-void BBB_profile_functions(uint8_t * src,uint8_t * dst);
+void BBB_profile_functions(uint8_t * src, uint8_t * dst);
 
 #endif /* _PROFILING_H_ */

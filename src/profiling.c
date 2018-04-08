@@ -116,7 +116,7 @@ void profiling_memset_dma(uint8_t * src)
 	return;
 }
 
-void FRDM_profile_functions(uint8_t * src,uint8_t * dst)
+void FRDM_profile_functions(uint8_t * src, uint8_t * dst)
 {
 	profile_memmove(src, dst);
 	profile_my_memmove(src, dst);
@@ -128,7 +128,7 @@ void FRDM_profile_functions(uint8_t * src,uint8_t * dst)
 	return;
 }
 
-void BBB_profile_functions(uint8_t * src,uint8_t * dst)
+void BBB_profile_functions(uint8_t * src, uint8_t * dst)
 {
 	profile_memmove(src, dst);
 #ifdef BBB
