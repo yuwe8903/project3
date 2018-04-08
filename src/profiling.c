@@ -131,7 +131,7 @@ void FRDM_profile_functions(uint8_t * src, uint8_t * dst)
 void BBB_profile_functions(uint8_t * src, uint8_t * dst)
 {
 	profile_memmove(src, dst);
-#ifdef BBB
+#ifdef BBB_PLATFORM
 	for(uint8_t i = 0; i < 4; i++)
 	{
 		printf("lib memmove[%d] is : %d \n", i, memmove_result[i]);
@@ -139,7 +139,7 @@ void BBB_profile_functions(uint8_t * src, uint8_t * dst)
 #endif
 
 	profile_my_memmove(src, dst);
-#ifdef BBB
+#ifdef BBB_PLATFORM
 	for(uint8_t i = 0; i < 4; i++)
 	{
 		printf("my_memmove[%d] is : %d \n", i, my_memmove_result[i]);
@@ -147,7 +147,7 @@ void BBB_profile_functions(uint8_t * src, uint8_t * dst)
 #endif
 
 	profile_memset(src);
-#ifdef BBB
+#ifdef BBB_PLATFORM
 	for(uint8_t i = 0; i < 4; i++)
 	{
 		printf("lib memset[%d] is : %d \n", i, memset_result[i]);
@@ -155,7 +155,7 @@ void BBB_profile_functions(uint8_t * src, uint8_t * dst)
 #endif
 
 	profile_my_memset(src);
-#ifdef BBB
+#ifdef BBB_PLATFORM
 	for(uint8_t i = 0; i < 4; i++)
 	{
 		printf("my_memset[%d] is : %d \n", i, my_memset_result[i]);
