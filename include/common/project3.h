@@ -8,18 +8,32 @@
 #ifndef _PROJECT3_H_
 #define _PROJECT3_H_
 
-#include<stdint.h>
 #include<stdlib.h>
 #include<stdio.h>
-
-#include "memory.h"
 #include "profiling.h"
-
-#include "dma.h"
+#ifdef KL25Z_PLATFORM
 #include "spi.h"
 #include "nordic.h"
-#include "gpio.h"
+#endif
+
+/***************************************************************
+* void project3_spi_nrf_interface() - This function will test
+* 	spi and nrf interface.
+* Inputs:
+* 	Nothing
+* Return:
+*   	Nothing
+****************************************************************/
 void project3_spi_nrf_interface();
+
+/***************************************************************
+* void project3_profile_demo() - This function will test profile
+* 	functions.
+* Inputs:
+* 	Nothing
+* Return:
+*   	Nothing
+****************************************************************/
 void project3_profile_demo();
 
 #endif /* _PROJECT3_H_ */
