@@ -5,7 +5,8 @@
 #	all - Builds and links all source file
 #	clean - Remove all generated files
 # Overrides:
-#	CPU - ARM Cortex Architecture (cortex-moplus)
+#	CPU_KL25Z - ARM Cortex Architecture (cortex-moplus)
+#	CPU_BBB - ARM Cortex Architecture (cortex-a8)
 #	ARCH - ARM Architecture (arm, thumb)
 #	SPECS - Specs file to give the linker (nosys.specs)
 # , -MAP=$(TARGET).map,-L[DIR] -I[LIB] -T=MKL25Z128xxx4_flash.ld
@@ -13,7 +14,8 @@
 include sources.mk
 
 #Overrides
-CPU = cortex-m0plus
+CPU_KL25Z = cortex-m0plus
+CPU_BBB = cortex-a8
 ARCH = thumb
 SPECS = nosys.specs
 CSTD = c99
@@ -31,42 +33,46 @@ INCLUDES=$(INCLUDE_COMMON)
 else ifeq ($(PLATFORM),BBB)
 CC = arm-linux-gnueabihf-gcc
 CFLAGS = -Werror -g -o0 -std=$(CSTD)\
+-mcpu=$(CPU_BBB) -m$(ARCH) \
 -DBBB_PLATFORM
 INCLUDES = $(INCLUDE_COMMON) $(INCLUDE_CMSIS)
 
 else ifeq ($(PLATFORM),KL25Z)
 CC = arm-none-eabi-gcc
-CFLAGS = -mcpu=$(CPU) -m$(ARCH) \
--specs=$(SPECS) -Werror -std=$(CSTD) \
+CFLAGS = -mcpu=$(CPU_KL25Z) -m$(ARCH) \
+-specs=$(SPECS) -Werror -g -o0 -std=$(CSTD) \
 -DKL25Z_PLATFORM
 INCLUDES = $(INCLUDE_COMMON) $(INCLUDE_CMSIS) $(INCLUDE_KL25Z)
-LDFLAGS = -Wl, -Map=$(TARGET).map, \
--T ../platform/MKL25Z128xxx4_flash.ld
+LDFLAGS = -T ../platform/MKL25Z128xxx4_flash.ld \
+-Xlinker -Map=$(TARGET).map
 endif
 
 ifeq ($(PLATFORM),HOST)
 OBJS = $(SRCS:.c=.o)
 else ifeq ($(PLATFORM),BBB)
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:.c=.o) $(KL25Z_SRCS:.c=.o)
 else ifeq ($(PLATFORM),KL25Z)
 OBJS = $(SRCS:.c=.o) $(KL25Z_SRCS:.c=.o) $(S_SRCS:.S=.o)
 endif
 
 %.o : %.c
-	-@echo ''
-	-@echo 'file .i created:'
+	-@echo 'Creating .o file:'
 	$(CC) -c $< $(CFLAGS) $(INCLUDES) -o $@
 
 %.i : %.c
+	-@echo 'Creating .i file:'
 	$(CC) -E $< $(CFLAGS) $(INCLUDES) -o $@
 
 %.asm : %.c
+	-@echo 'Creating .asm file:'
 	$(CC) -S $< $(CFLAGS) $(INCLUDES) -o $@
 
 %.o : %.S
+	-@echo 'Creating .o file:'
 	$(CC) -c $< $(CFLAGS) $(INCLUDES) -o $@
 
 %.d : %.c
+	-@echo 'Creating .d file:'
 	$(CC) -M $< $(CFLAGS) $(INCLUDES) -o $@
 
 .PHONY: compile-all
@@ -82,7 +88,7 @@ $(TARGET): $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) $(INCLUDES) $(LDFLAGS) -DPROJECT3 -o $(TARGET).elf
 .PHONY: clean
 clean:
-	rm -f *.asm *.i *.o *.d $(TARGET) $(TARGET).amp $(TARGET).elf
+	rm -f *.asm *.i *.o *.d $(TARGET) $(TARGET).map $(TARGET).elf
 
 
 

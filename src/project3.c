@@ -8,8 +8,10 @@
 #include "project3.h"
 void project3_spi_nrf_interface()
 {
+#ifdef KL25Z_PLATFORM
 	SPI_Configure();
 	nrf_read_status();
+#endif
 	return;
 }
 

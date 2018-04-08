@@ -52,7 +52,7 @@ void profile_my_memmove(uint8_t * src, uint8_t * dst)
 	}
 	return;
 }
-
+#ifdef KL25Z_PLATFORM
 void profile_memmove_dma(uint8_t * src,uint8_t * dst)
 {
 	pointer = memmove_dma_result;
@@ -67,7 +67,7 @@ void profile_memmove_dma(uint8_t * src,uint8_t * dst)
 	}
 	return;
 }
-
+#endif
 void profile_memset(uint8_t * src)
 {
 	pointer = memset_result;
@@ -100,8 +100,8 @@ void profile_my_memset(uint8_t * src)
 	return;
 
 }
-
-void profiling_memset_dma(uint8_t * src)
+#ifdef KL25Z_PLATFORM
+void profile_memset_dma(uint8_t * src)
 {
 	pointer = memset_dma_result;
 	for(uint8_t i = 0; i < 4; i++)
@@ -115,7 +115,8 @@ void profiling_memset_dma(uint8_t * src)
 	}
 	return;
 }
-
+#endif
+#ifdef KL25Z_PLATFORM
 void FRDM_profile_functions(uint8_t * src, uint8_t * dst)
 {
 	profile_memmove(src, dst);
@@ -127,40 +128,34 @@ void FRDM_profile_functions(uint8_t * src, uint8_t * dst)
 	profile_memset_dma(src);
 	return;
 }
-
+#endif
+#ifdef BBB_PLATFORM
 void BBB_profile_functions(uint8_t * src, uint8_t * dst)
 {
 	profile_memmove(src, dst);
-#ifdef BBB_PLATFORM
 	for(uint8_t i = 0; i < 4; i++)
 	{
 		printf("lib memmove[%d] is : %d \n", i, memmove_result[i]);
 	}
-#endif
 
 	profile_my_memmove(src, dst);
-#ifdef BBB_PLATFORM
 	for(uint8_t i = 0; i < 4; i++)
 	{
 		printf("my_memmove[%d] is : %d \n", i, my_memmove_result[i]);
 	}
-#endif
 
 	profile_memset(src);
-#ifdef BBB_PLATFORM
 	for(uint8_t i = 0; i < 4; i++)
 	{
 		printf("lib memset[%d] is : %d \n", i, memset_result[i]);
 	}
-#endif
 
 	profile_my_memset(src);
-#ifdef BBB_PLATFORM
 	for(uint8_t i = 0; i < 4; i++)
 	{
 		printf("my_memset[%d] is : %d \n", i, my_memset_result[i]);
 	}
-#endif
 
 	return;
 }
+#endif
