@@ -9,12 +9,13 @@
 
 #include <stdint.h>
 #include <string.h>
-#include "gpio.h"
+#include <stdio.h>
 #include "memory.h"
 #include <time.h>
-
+#ifdef KL25Z_PLATFORM
+#include "gpio.h"
 #include "dma.h"
-#include "MKL25Z4.h"
+#endif
 
 #define SYSTICK_COUNT() (SysTick->VAL)
 #define SYSTICK_ZERO() (SysTick->VAL = 0UL)
@@ -62,7 +63,9 @@ void profile_my_memmove(uint8_t * src,uint8_t * dst);
 * Return:
 *   Nothing
 **********************************************************/
+#ifdef KL25Z_PLATFORM
 void profile_memmove_dma(uint8_t * src,uint8_t * dst);
+#endif
 
 /*********************************************************
 * void profile_memset() - This function does profiling
@@ -92,7 +95,9 @@ void profile_my_memset(uint8_t * src);
 * Return:
 *   Nothing
 **********************************************************/
+#ifdef KL25Z_PLATFORM
 void profile_memset_dma(uint8_t * src);
+#endif
 
 /*********************************************************
 * void FRDM_profile_functions() - This function will call
@@ -103,7 +108,9 @@ void profile_memset_dma(uint8_t * src);
 * Return:
 *   Nothing
 **********************************************************/
+#ifdef KL25Z_PLATFORM
 void FRDM_profile_functions(uint8_t * src, uint8_t * dst);
+#endif
 
 /*********************************************************
 * void BBB_profile_functions() - This function will call
@@ -115,6 +122,8 @@ void FRDM_profile_functions(uint8_t * src, uint8_t * dst);
 * Return:
 *   Nothing
 **********************************************************/
+#ifdef BBB_PLATFORM
 void BBB_profile_functions(uint8_t * src, uint8_t * dst);
+#endif
 
 #endif /* _PROFILING_H_ */
