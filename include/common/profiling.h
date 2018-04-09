@@ -101,7 +101,8 @@ void profile_memset_dma(uint8_t * src);
 
 /*********************************************************
 * void FRDM_profile_functions() - This function will call
-* 	all of the profiling functions for FRDM platform
+* 	all of the profiling functions for FRDM platform.
+*	This function calls dma.c, but needs #define KL25Z
 * Inputs:
 * 	src: source pointer
 * 	dst: designation pointer
