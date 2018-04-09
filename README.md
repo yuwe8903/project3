@@ -5,7 +5,7 @@ Yue Wei
 
 The following table shows profiling value in clock cycles (ticks) on FRDM board
 
-FRDM Board		10bytes		100bytes	1000bytes	5000bytes
+FRDM Board     10bytes     100bytes     1000bytes     5000bytes
 
 Lib memmove		149		959		9059		45049
 
