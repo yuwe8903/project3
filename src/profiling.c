@@ -30,7 +30,7 @@ void profile_memmove(void * src, void * dst)
 	{
 		SYSTICK_ZERO();
 		start_systick_counter = SYSTICK_COUNT();
-		memmove(dst, src, bytes_size[i]);
+		memmove(src, dst, bytes_size[i]);
 		end_systick_counter = SYSTICK_COUNT();
 		difference = start_systick_counter - end_systick_counter;
 		*(pointer+i) = difference;
@@ -121,10 +121,12 @@ void FRDM_profile_functions(uint8_t * src, uint8_t * dst)
 {
 	profile_memmove(src, dst);
 	profile_my_memmove(src, dst);
+	DMA_Configure();
 	profile_memmove_dma(src, dst);
 
 	profile_memset(src);
 	profile_my_memset(src);
+	DMA_Configure();
 	profile_memset_dma(src);
 	return;
 }

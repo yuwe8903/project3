@@ -8,7 +8,7 @@
 #include "memory.h"
 #include <stdio.h>
 
-int8_t i;
+int32_t i;
 /*Move a given size of string in memory*/
 uint8_t * my_memmove(uint8_t * src, uint8_t * dst, size_t length)
 {
